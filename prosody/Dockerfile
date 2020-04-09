@@ -1,5 +1,5 @@
 ARG JITSI_REPO=jitsi
-FROM ${JITSI_REPO}/base
+FROM ${JITSI_REPO}/jitsi-base
 
 ADD https://prosody.im/files/prosody-debian-packages.key /tmp/prosody.key
 
@@ -48,6 +48,7 @@ RUN \
     sed -i s/hook/hook_global/g /prosody-plugins/mod_auth_token.lua \
     && patch -d /usr/lib/prosody/modules/muc -p0 < /prosody-plugins/muc_owner_allow_kick.patch
 
+COPY mod_websocket.lua mod_auth_token.lua /prosody-plugins/
 COPY rootfs/ /
 
 EXPOSE 5222 5269 5347 5280
