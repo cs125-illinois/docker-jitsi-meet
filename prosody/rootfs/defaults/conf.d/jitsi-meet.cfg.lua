@@ -1,6 +1,10 @@
 admins = { "{{ .Env.JICOFO_AUTH_USER }}@{{ .Env.XMPP_AUTH_DOMAIN }}" }
 plugin_paths = { "/prosody-plugins/", "/prosody-plugins-custom" }
 http_default_host = "{{ .Env.XMPP_DOMAIN }}"
+trusted_proxies = { "172.28.1.1" }
+
+consider_websocket_secure = true
+cross_domain_websocket = true
 
 {{ $ENABLE_AUTH := .Env.ENABLE_AUTH | default "0" | toBool }}
 {{ $AUTH_TYPE := .Env.AUTH_TYPE | default "internal" }}
@@ -43,6 +47,7 @@ VirtualHost "{{ .Env.XMPP_DOMAIN }}"
         certificate = "/config/certs/{{ .Env.XMPP_DOMAIN }}.crt";
     }
     modules_enabled = {
+        "websocket";
         "bosh";
         "pubsub";
         "ping";
