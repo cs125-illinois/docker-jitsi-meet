@@ -158,6 +158,7 @@ services:
             - JVB_STUN_SERVERS
             - JVB_ENABLE_APIS
             - TZ
+            - HTTPS_PORT
         depends_on:
             - prosody
         networks:
