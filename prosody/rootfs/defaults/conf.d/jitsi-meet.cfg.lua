@@ -51,6 +51,8 @@ VirtualHost "{{ .Env.XMPP_DOMAIN }}"
         "bosh";
         "pubsub";
         "ping";
+        "speakerstats";
+        "conference_duration";
         {{ if .Env.XMPP_MODULES }}
         "{{ join "\";\n\"" (splitList "," .Env.XMPP_MODULES) }}";
         {{ end }}
@@ -58,6 +60,9 @@ VirtualHost "{{ .Env.XMPP_DOMAIN }}"
         "auth_cyrus";
         {{end}}
     }
+
+    speakerstats_component = "speakerstats.{{ .Env.XMPP_DOMAIN }}"
+    conference_duration_component = "conferenceduration.{{ .Env.XMPP_DOMAIN }}"
 
     c2s_require_encryption = false
 
@@ -108,3 +113,8 @@ Component "{{ .Env.XMPP_MUC_DOMAIN }}" "muc"
 Component "focus.{{ .Env.XMPP_DOMAIN }}"
     component_secret = "{{ .Env.JICOFO_COMPONENT_SECRET }}"
 
+Component "speakerstats.{{ .Env.XMPP_DOMAIN }}" "speakerstats_component"
+    muc_component = "{{ .Env.XMPP_MUC_DOMAIN }}"
+
+Component "conferenceduration.{{ .Env.XMPP_DOMAIN }}" "conference_duration_component"
+    muc_component = "{{ .Env.XMPP_MUC_DOMAIN }}"
