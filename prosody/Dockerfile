@@ -46,7 +46,7 @@ RUN \
 
 RUN patch -d /usr/lib/prosody/modules/muc -p0 < /prosody-plugins/muc_owner_allow_kick.patch
 
-COPY mod_websocket.lua mod_auth_token.lua /prosody-plugins/
+COPY mod_websocket.lua mod_muc_status.lua /prosody-plugins/
 COPY rootfs/ /
 
 EXPOSE 5222 5269 5347 5280

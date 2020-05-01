@@ -48,6 +48,7 @@ VirtualHost "{{ .Env.XMPP_DOMAIN }}"
     }
     modules_enabled = {
         "websocket";
+        "muc_status";
         "bosh";
         "pubsub";
         "ping";
